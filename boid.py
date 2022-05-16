@@ -27,9 +27,6 @@ class Boid(pygame.sprite.Sprite):
         self.new_v = self.velocity
 
     def update(self):
-        print("pos:",self.pos)
-        print("new_v:",self.new_v)
-        print("velocity:",self.velocity)
         
         self.velocity = self.new_v
         new_pos = self.pos + self.velocity
@@ -44,23 +41,23 @@ class Boid(pygame.sprite.Sprite):
 
 class Behavior:
     def __init__(self,
-            min_distance=1, 
-            max_distance=1, 
-            center_factor=100, 
-            match_factor=16, 
+            min_distance=20,
+            center_factor=25,
+            match_factor=16,
             width=1280, 
             height=720,
             speed_limit=50,
             roam=False,
             ):
         self.min_distance = min_distance
-        self.max_distance = max_distance
         self.center_factor = center_factor
         self.match_factor = match_factor
         self.height = height
         self.width = width
         self.speed_limit = speed_limit
         self.roam=roam
+        self.fav_point = Vector2((self.width/2, self.height/2))
+
 
     def change_state(self, boids):
         for boid in boids:
@@ -112,13 +109,13 @@ class Behavior:
 
     def avoid_edge(self, boid):
         new_v = Vector2()
-        if boid.pos.y <= 20:
+        if boid.pos.y <= 5:
             new_v.y = 2
-        if boid.pos.y >= self.height - 20:
+        if boid.pos.y >= self.height - 5:
             new_v.y = -2
-        if boid.pos.x <= 20:
+        if boid.pos.x <= 5:
             new_v.x = 2
-        if boid.pos.x >= self.width - 20:
+        if boid.pos.x >= self.width - 5:
             new_v.x = -2
         return new_v
 
@@ -130,9 +127,16 @@ class Behavior:
 
     def fav_place(self, boid, roam=False):
         if roam:
-            x = random.uniform(0, self.width-50)
-            y = random.uniform(0, self.height-50)
-            point = Vector2((x, y))
+            x = random.uniform(0, self.width-5)
+            y = random.uniform(0, self.height-5)
+            corner = [
+                (20, 20),
+                (1260, 20),
+                (20, 700),
+                (1260, 700),
+            ]
+            point = Vector2(random.choice(corner))
         else:
-            point = Vector2((self.width/2, self.height/2))
-        return (point - boid.pos) / self.center_factor
+            point = self.fav_point
+        return (point - boid.pos) / 10
+

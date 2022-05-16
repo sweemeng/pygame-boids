@@ -1,20 +1,22 @@
 import random
 
 import pygame
+from pygame.math import Vector2
 from boid import Boid, Behavior
 
 
 WIDTH = 1280
 HEIGHT = 720
 BOID_COUNT = 15
-ROAMING = True
+ROAMING = False
 
 def boid_factory(count=10):
     for _ in range(count):
         x = random.uniform(10, WIDTH-10)
         y = random.uniform(10, HEIGHT-10)
+        color = (255,255,255)
         velocity = (random.uniform(-1,1), random.uniform(-1,1))
-        boid = Boid((x, y), velocity=velocity)
+        boid = Boid((x, y), velocity=velocity, color=color)
         yield boid
     
 
@@ -33,6 +35,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                print(event.pos)
+                behavior.fav_point = Vector2(event.pos)
         behavior.change_state(all_sprites)
 
         screen.fill((0,0,0))
