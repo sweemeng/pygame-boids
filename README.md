@@ -2,6 +2,8 @@
 
 Boid algorithm is that simulate flocking behavior in birds. It is also well known that the rule for the behavior is reasonably simple. 
 
+To see flocking behavior, please click on the pygame window
+
 ![boids running](./running.gif)
 
 Source 
