@@ -5,6 +5,7 @@ Boid algorithm is that simulate flocking behavior in birds. It is also well know
 ## To run
 
 * I assume that you have poetry running
+* Install dependency `poetry install`
 * Run by `poetry run python main.py`
 
 ## To play
@@ -12,6 +13,8 @@ Boid algorithm is that simulate flocking behavior in birds. It is also well know
 To see flocking behavior, please click on the pygame window
 
 ![boids running](./running.gif)
+
+Also you can run this on repl.it at https://replit.com/@sweemengng/pygame-boids
 
 ## Source 
 
