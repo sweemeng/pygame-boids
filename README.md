@@ -14,7 +14,7 @@ To see flocking behavior, please click on the pygame window
 
 ![boids running](./running.gif)
 
-Also you can run this on repl.it at https://replit.com/@sweemengng/pygame-boids
+Also you can run this on repl.it at https://replit.com/@sweemengng/pygame-boids-1
 
 ## Source 
 
