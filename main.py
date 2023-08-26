@@ -4,28 +4,28 @@ import pygame
 from pygame.math import Vector2
 from boid import Boid, Behavior
 
-
 WIDTH = 1280
 HEIGHT = 720
 BOID_COUNT = 15
 ROAMING = False
 
+
 def boid_factory(count=10):
     for _ in range(count):
-        x = random.uniform(10, WIDTH-10)
-        y = random.uniform(10, HEIGHT-10)
-        color = (255,255,255)
-        velocity = (random.uniform(-1,1), random.uniform(-1,1))
+        x = random.uniform(10, WIDTH - 10)
+        y = random.uniform(10, HEIGHT - 10)
+        color = (255, 255, 255)
+        velocity = (random.uniform(-1, 1), random.uniform(-1, 1))
         boid = Boid((x, y), velocity=velocity, color=color)
         yield boid
-    
+
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((WIDTH,HEIGHT))
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
     all_sprites = pygame.sprite.Group()
-    
+
     for boid in boid_factory(BOID_COUNT):
         all_sprites.add(boid)
     running = True
@@ -38,15 +38,19 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 print(event.pos)
                 behavior.fav_point = Vector2(event.pos)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
         behavior.change_state(all_sprites)
 
-        screen.fill((0,0,0))
+        screen.fill((0, 0, 0))
         all_sprites.update()
         all_sprites.draw(screen)
         pygame.display.flip()
         clock.tick(10)
 
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()
